@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.navbar{
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.col-4{
+    /* border: 2px solid gray; */
+    margin-top: 18px;
+}
+
+.col-8{
+    /* border: 2px solid gray; */
+    margin-top: 18px;
+}
