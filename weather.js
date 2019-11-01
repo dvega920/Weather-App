@@ -3,7 +3,6 @@ $(document).ready(function () {
     var currentDate = moment().format("MM/DD/YYYY");
     console.log(currentDate);
 
-
     $("button").on("click", function (event) {
         event.preventDefault();
 
@@ -24,8 +23,12 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
-            $(".city-name").text(response.name);
-            $("span").text(currentDate);
+            $(".city-name").html(response.name + " (" + currentDate + ")" );
+            $(".temp").html("Temperature: " + response.main.temp + " &#176" + "F");
+            $(".humidity").text("Humidity: " + response.main.humidity + "%");
+            $(".wind-speed").text("Wind Speed: " + response.wind.speed + " MPH");
+            $(".uv-index").text("UV Index: " + response.main.temp);
+
         })
 
 
