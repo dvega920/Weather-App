@@ -3,15 +3,17 @@ $(document).ready(function () {
     var currentDate = moment().format("MM/DD/YYYY");
     // console.log(currentDate);
 
+    // for (var i = 0; i < localStorage.length; i++) {
+    //     var cityName = localStorage.getItem(i);
+    //     console.log(cityName);
+    // }
+
     $("button").on("click", function (event) {
         event.preventDefault();
 
         var APIKey = "f41986cb305bbebfdd6bfe2ffeb29d4a";
-        var zipCode = $(".search-box").val();
-        // var cityName = [];
-        var url = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&APPID=${APIKey}`
-
-        localStorage.setItem("zip", zipCode);
+        var city = $(".search-box").val();
+        var url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${APIKey}&units=imperial`
 
         $.ajax({
             url: url,
