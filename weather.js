@@ -25,21 +25,26 @@ $(document).ready(function () {
         }
 
 
-        search.val = "";
+        // search.val = "";
 
         if (cityNames === null) {
             citiesArray = [search];
         } else {
             citiesArray.push(search);
+
         }
 
-        console.log(citiesArray);
+        // console.log(citiesArray);
         cityData(search);
 
         localStorage.setItem("cityNames", JSON.stringify(citiesArray));
 
+
     })
 
+    function clear() {
+        var cardBody = $(".card-body").empty();
+    }
 
     function cityData(search) {
 
@@ -60,47 +65,35 @@ $(document).ready(function () {
             temp.html("Temperature: " + response.main.temp + " &#176" + "F");
             humidity.text("Humidity: " + response.main.humidity + "%");
             windSpeed.text("Wind Speed: " + response.wind.speed + " MPH");
-            uvIndex.text("UV Index: " + "empty");
-
+            clear();
             //Need to find a weather icon from font awesome and append to cityName
-
-            var longitute;
-            var latitude;
-
-            // api url to get the uv index
-            var uvURL;
-
-            //separate ajax call to get the uv index and append to uvIndex variable
-            // $.ajax({
-            //     url: url,
-            //         method: "GET"
-            // }).then(function (response) {
-
-            // })
 
             $("div.card-body").append(cityName);
             $("div.card-body").append(temp);
             $("div.card-body").append(humidity);
             $("div.card-body").append(windSpeed);
-            $("div.card-body").append(uvIndex);
+
+
+            var lon = response.coord.lon;
+            var lat = response.coord.lat;
+
+            var uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&APPID=${APIKey}
+                `
+
+            //separate ajax call to get the uv index and append to uvIndex variable
+            $.ajax({
+                url: uvUrl,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                uvIndex.text("UV Index: " + response.value);
+                $("div.card-body").append(uvIndex);
+            })
+
+
+
 
         })
 
-
-
-
-
     }
-
-
-
-
-})    // END OF $(document).ready() 
-
-
-
-
-
-
-
-
+})
