@@ -9,13 +9,14 @@ $(document).ready(function () {
         citiesArray = [];
     }
 
-    // need to add a forEach to loop through citiesArray to check for saved values
+
+
 
     $("button").on("click", function (event) {
         event.preventDefault();
 
-
         var search = $(".search-box").val();
+
         // console.log(search);
         cityNames = JSON.parse(localStorage.getItem("cityNames"));
 
@@ -23,9 +24,6 @@ $(document).ready(function () {
         if (search == "" || search == null) {
             return;
         }
-
-
-        // search.val = "";
 
         if (cityNames === null) {
             citiesArray = [search];
@@ -35,12 +33,18 @@ $(document).ready(function () {
         }
 
         // console.log(citiesArray);
+
+        //adds city list item to history - clears after refresh though...
+        var newDiv = $("<div>");
+        newDiv.attr("city-list")
+        newDiv.text(search);
+        $(".list-group").append(newDiv);
+
         cityData(search);
 
         localStorage.setItem("cityNames", JSON.stringify(citiesArray));
-
-
     })
+
 
     function clear() {
         var cardBody = $(".card-body").empty();
@@ -59,7 +63,7 @@ $(document).ready(function () {
             url: url,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            // console.log(response);
             cityName.text(response.name + " (" + currentDate + ")");
             // var cityName = response.name;
             temp.html("Temperature: " + response.main.temp + " &#176" + "F");
@@ -85,15 +89,23 @@ $(document).ready(function () {
                 url: uvUrl,
                 method: "GET"
             }).then(function (response) {
-                console.log(response);
+                // console.log(response);
                 uvIndex.text("UV Index: " + response.value);
                 $("div.card-body").append(uvIndex);
             })
 
-
-
-
         })
+
+    }
+
+    $.ajax({})
+    function fiveDay() {
+
+        var div = $("<div>");
+        $(".fiveday").append(div);
+        $("div").addClass("five-day-card");
+        var p = $("<p>");
+        $(".five-day-card").append(p);
 
     }
 })
